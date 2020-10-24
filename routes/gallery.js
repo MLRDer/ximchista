@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Gallery = require('../models/Gallery');
 const multer = require('multer');
+const fs = require('fs');
 
 const storage = multer.diskStorage({
 	destination: function(req, file, cb) {
@@ -43,7 +44,7 @@ function deleteFile(path) {
 
 router.get('/', async (req, res) => {
 	try {
-		const data = await Gallery.find();
+		const data = await Gallery.find().sort({ date: -1 });
 		res.status(200).json(data);
 	}
 	catch (err) {
@@ -60,8 +61,11 @@ router.post('/', upload.single('image'), async (req, res) => {
 			image: `uploads/${req.file.filename}`
 		});
 
-		const saved = gallery.save();
-		res.status(200).json(saved);
+		await gallery.save();
+		res.status(200).json({
+			success: true,
+			message: "Muvaffaqiyatli yuklandi!"
+		});
 	}
 	catch (err) {
 		res.status(400).json({

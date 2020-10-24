@@ -44,7 +44,7 @@ function deleteFile(path) {
 
 router.get('/', async (req, res) => {
 	try {
-		const data = await About.find();
+		const data = await About.findById("5f9400e6d620c9193c5f1fd3");
 
 		res.status(200).json(data);
 	}
@@ -56,9 +56,40 @@ router.get('/', async (req, res) => {
 	}
 });
 
+router.post('/', async (req, res) => {
+	try {
+		const about = new About({
+			uz: {
+				title: req.body.uz.title,
+				body: req.body.uz.body,
+				address: req.body.uz.address
+			},
+			ru: {
+				title: req.body.ru.title,
+				body: req.body.ru.body,
+				address: req.body.ru.address
+			},
+			email: req.body.email,
+			phone: req.body.phone,
+			instagram: req.body.instagram,
+			telegram: req.body.telegram,
+			facebook: req.body.facebook
+		});
+
+		const saved = await about.save();
+		res.status(200).json(saved);
+	}
+	catch (err) {
+		res.status(400).json({
+			success: false,
+			message: err.message
+		});
+	}
+});
+
 router.patch('/', async (req, res) => {
 	try {
-		const about = await About.findByIdAndUpdate("5f93bbc2d533130ba76598f6",
+		const about = await About.findByIdAndUpdate("5f9400e6d620c9193c5f1fd3",
 			{
 				$set: {
 					uz: {
@@ -94,7 +125,7 @@ router.patch('/', async (req, res) => {
 
 router.patch('/image', upload.single('image'), async (req, res) => {
 	try {
-		const about = await About.findById("5f93bbc2d533130ba76598f6");
+		const about = await About.findById("5f9400e6d620c9193c5f1fd3");
 		if(about.image) {
 			deleteFile(about.image);
 		}

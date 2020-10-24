@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Service = require('../models/Service');
 const multer = require('multer');
-
+const fs = require('fs');
 
 const storage = multer.diskStorage({
 	destination: function(req, file, cb) {
@@ -44,7 +44,7 @@ function deleteFile(path) {
 
 router.get('/', async (req, res) => {
 	try {
-		const services = await Service.find();
+		const services = await Service.find().sort({ date: -1 });
 		res.status(200).json(services);
 	}
 	catch (err) {
