@@ -18,6 +18,10 @@
   },
   "homepage": "https://github.com/MLRDer/ximchista#readme",
   "dependencies": {
-    "express": "^4.17.1"
+    "body-parser": "^1.19.0",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "mongoose": "^5.10.10",
+    "multer": "^1.4.2"
   }
 }

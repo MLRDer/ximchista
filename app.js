@@ -1,15 +1,15 @@
 // all needed packages
 const express = require('express');
 const app = express();
-/* const mongoose = require('mongoose');
+const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 require('dotenv/config');
 
 // routes
+const loginRoute = require('./routes/login');
+const aboutRoute = require('./routes/about');
+const galleryRoute = require('./routes/gallery');
 
-
-// patched mongoose
-require('./helpers/customFuncs');
 
 // database connection
 const ConnectionString = process.env.ConnectionString;
@@ -34,10 +34,6 @@ app.use(bodyParser.urlencoded({
 	}));
 
 
-*/
-app.get('/', (req, res) => {
-	res.send('hello world');
-});
 
 // listen
 app.listen(4000);
